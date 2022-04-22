@@ -26,11 +26,12 @@ class AddTicketsForm(FlaskForm):
 """
 
 class BookingForm(FlaskForm):
-    email = StringField('Email', validators=[Required(), Email()])
+    email = StringField('', [validators.Length(min=2, max=35),
+                                          validators.Email()])
     submit = SubmitField('Submit')
 
     """Email taken"""
-    def validate_email(self, field):
-        email = Booking.query.filter_by(email= field.data).first()
+    def validate_email(self, email):
+        email = Booking.query.filter_by(email=email.data).first()
         if email:
             raise ValidationError('Email is taken')
