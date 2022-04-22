@@ -1,0 +1,35 @@
+{% block content %}
+
+
+
+<div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+ {% if messages  %}
+  {% for category, message in messages  %}
+   <div class="login_alert">
+    {{ message }}
+   </div>
+  {% endfor %}
+ {% endif %}
+{% endwith %}
+
+
+
+      <form class="" method="POST" action="/booking">
+{{ form.csrf_token }}
+          <label>{{ form.email(placeholder="Email") }}
+        {% if form.email.errors %}
+        <div>
+        {% for error in form.email.errors %}
+         <span>{{ error }}<span>
+        {% endfor %}
+        </div>
+        {% else %}
+        {{ email }}
+        {% endif %}
+   {{ form.submit }}
+
+</form>
+
+
+{% endblock content %}
